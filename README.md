@@ -44,7 +44,7 @@ Layers of the APP:
 
 To get authorized please use ADMIN and 1234.
 Also cache is enabled for all the end-points inputs
-and this project is available on DockerHub.
+and this project is available on DockerHub - jackredd/search-address-coordinate.
 
 Best regards, Evgen.
 
