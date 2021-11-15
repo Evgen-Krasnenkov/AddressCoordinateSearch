@@ -5,20 +5,17 @@ import evgen.krasnenkov.model.Address;
 import evgen.krasnenkov.model.Coordinate;
 import evgen.krasnenkov.model.dto.AddressResponseDto;
 import evgen.krasnenkov.repository.AddressRepository;
-import evgen.krasnenkov.service.api.AddressApi;
+import evgen.krasnenkov.service.api.AddressApiService;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
-    private final AddressApi addressApi;
-
-    public AddressServiceImpl(AddressRepository addressRepository, AddressApi addressApi) {
-        this.addressRepository = addressRepository;
-        this.addressApi = addressApi;
-    }
+    private final AddressApiService addressApiService;
 
     @Override
     public Address saveToLocalDB(Address address) {
@@ -33,7 +30,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<AddressResponseDto> getAllFromApi(List<Coordinate> coordinatesFromDB) {
         return coordinatesFromDB.stream()
-                        .map(coordinate -> addressApi.getAddressByCoordinate(coordinate).orElseThrow(() ->
+                        .map(coordinate -> addressApiService.getAddressByCoordinate(coordinate).orElseThrow(() ->
                                 new DataProcessingException("Cannot map a coordinate to an address")))
                                 .collect(Collectors.toList());
     }
